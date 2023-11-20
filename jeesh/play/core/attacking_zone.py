@@ -48,3 +48,4 @@ def get_armies_attacking_zone(soldiers):
 # Given a Soldiers position, return if the Soldier is in an armies attacking zone
 def is_soldier_in_attacking_zone(soldier_position, attacking_zone):
     return soldier_position in attacking_zone
+

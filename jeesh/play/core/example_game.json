@@ -1,0 +1,52 @@
+{
+    "starPositions": [
+      [5,5,5],
+      [6,6,6],
+      [4,4,4]
+    ],
+    "currentMoveIndex": 3,
+    "army1": [
+      {
+        "dead": false,
+        "poses": [
+          {
+            "moveIndex": 0,
+            "position": [5,5,10],
+            "orientation": "-z" 
+          },
+          {
+            "moveIndex": 1,
+            "position": [5,5,9],
+            "orientation": "-z" 
+          }
+        ]
+      },
+      {
+        "dead": false,
+        "poses": [
+          {
+            "moveIndex": 0,
+            "position": [5,4,10],
+            "orientation": "-z" 
+          }
+        ]
+      }
+    ],
+    "army2": [
+      {
+        "dead": false,
+        "poses": [
+          {
+            "moveIndex": 0,
+            "position": [5,5,0],
+            "orientation": "-z" 
+          },
+          {
+            "moveIndex": 2,
+            "position": [5,6,1],
+            "orientation": "+y" 
+          }
+        ]
+      }
+    ]
+  }
