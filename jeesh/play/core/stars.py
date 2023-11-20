@@ -5,9 +5,9 @@ def generate_star_coordinates():
     num_stars = random.randint(0, 81)
 
     # Create a list of star coordinates
-    star_coordinates = []
+    star_coordinates = set()
     for i in range(num_stars):
-        star_coordinates.append(
+        star_coordinates.add(
             (random.randint(1, 10), random.randint(1, 10), random.randint(1, 10))
         )
     
