@@ -1,91 +1,58 @@
-'''
-Example of a game JSON
-{
-    "starsPositions": [
-        [5,5,5],
-        [5,5,6],
-    ],
-    "currentMoveIndex": 3,
-    "army1": [
-        {
-            "dead": false,
-            "poses": [
-                {
-                    moveIndex: 0,
-                    position: [1, 1, 1],
-                    orientation: "+x"
-                }
-            ]
-        },
-        {
-            "dead": false,
-            "poses": [
-                {
-                    moveIndex: 0,
-                    position: [1, 1, 2],
-                    orientation: "+x"
-                },
-                {
-                    moveIndex: 1,
-                    position: [1, 1, 3],
-                    orientation: "+x"
-                }
-            ]
-        },
-    ],
-    "army2": [
-        {
-            "dead": false,
-            "poses": [
-                {
-                    moveIndex: 0,
-                    position: [1, 1, 1],
-                    orientation: "+x"
-                },
-                {
-                    moveIndex: 2,
-                    position: [1, 1, 1],
-                    orientation: "+x"
-                }
-            ]
-        }
-    ]
-}
-'''
 from play.core.stars import generate_star_coordinates
+from play.core.game_parameters import STARTING_POSES, DOOR_POSITIONS
 
-class Soldier:
-    def __init__(self, id, dead, positions) -> None:
-        self.id = id
-        self.dead = dead
-        self.positions = positions
+# Initialize the game
+def initialize_game():
+    return {
+        'starsPositions': generate_star_coordinates(),
+        'currentMoveIndex': 1,
+        'army1': STARTING_POSES['army1'],
+        'army2': STARTING_POSES['army2']
+    }
 
-class Game:
-    
-    def __init__(self, game_json) -> None:
-        self.star_positions = star_positions
+def get_legal_moves(game_state):
+    pass
 
-
-
-
-# def extract_current_soldier_positions(game_json):
-#     pass
-
-
-# def initialize_game():
-#     # Get random star positions
-#     star_positions = generate_star_coordinates()
-
-
-
-# def get_legal_moves():
-#     pass
 
 # def apply_move():
 #     pass
 
-# def is_terminal():
-#     pass
+def check_if_army_is_dead(army):
+    for soldier in army:
+        if not soldier['dead']:
+            return False
+    return True
+
+# Check if Army 1 has entered the Army 2 door
+def check_if_army1_entered_door(army1):
+    for soldier in army1:
+        # Check if soldier is not dead last position
+        if not soldier['dead'] and soldier['position'][-1] == DOOR_POSITIONS['army2']:
+            return True
+
+    return False
+
+# Check if Army 2 has entered the Army 1 door
+def check_if_army2_entered_door(army2):
+    for soldier in army2:
+        # Check if soldier is not dead last position
+        if not soldier['dead'] and soldier['position'][-1] == DOOR_POSITIONS['army1']:
+            return True
+
+    return False
+
+
+def is_terminal(game_state):
+    is_army1_dead = check_if_army_is_dead(game_state['army1'])
+    is_army2_dead = check_if_army_is_dead(game_state['army2'])
+
+    if is_army1_dead or is_army2_dead:
+        return True
+    
+    if check_if_army1_entered_door(game_state['army1']):
+        return True
+
+    return False
 
 # def get_best_move():
 #     pass
