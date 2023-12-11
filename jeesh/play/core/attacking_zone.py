@@ -45,11 +45,11 @@ def get_soldier_attacking_zone(soldier_position, soldier_orientation):
     return attacking_zone
 
 # Given a list of Soldiers (Army), return a list of all the Cubes that the Soldiers can attack
-def get_armies_attacking_zone(soldiers):
+def get_armies_attacking_zone(soldiers_current_poses):
     attacking_zone = set()
 
-    for soldier in soldiers:
-        attacking_zone.update(get_soldier_attacking_zone(soldier.position, soldier.orientation))
+    for soldier_pose in soldiers_current_poses:
+        attacking_zone.update(get_soldier_attacking_zone(soldier_pose.position, soldier_pose.orientation))
 
     return attacking_zone
 

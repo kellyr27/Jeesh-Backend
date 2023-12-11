@@ -1,5 +1,17 @@
 from play.utils.positions import check_if_valid_position
 
+def get_current_army_poses(game_state, armyNum):
+    soldier_poses = []
+    for soldier in game_state[f'army{armyNum}']:
+        if not soldier['dead']:
+            soldier_poses.append(soldier['poses'][-1])
+
+def get_current_army1_poses(game_state):
+    return get_current_army_poses(game_state, 1)
+
+def get_current_army2_poses(game_state):
+    return get_current_army_poses(game_state, 2)
+
 def get_current_army_current_positions(game_state, armyNum):
     soldier_positions = []
     for soldier in game_state[f'army{armyNum}']:
@@ -46,9 +58,28 @@ def get_soldier_legal_moves(solider_index, soldier_position, star_positions, sol
                     orientations = get_legal_orientations(i, j, k)
                     for orientation in orientations:
                         legal_moves.append({
-                            'soldier_index': solider_index,
+                            'soldierIndex': solider_index,
                             'position': [i, j, k],
                             'orientation': orientation
                         })
 
     return legal_moves
+
+def get_army_legal_moves(game_state, armyNum):
+    legal_moves = []
+    army1_positions = get_current_army1_positions(game_state)
+    army2_positions = get_current_army2_positions(game_state)
+    star_positions = game_state['starsPositions']
+    
+    for index, soldier in enumerate(game_state[f'army{armyNum}']):
+        if not soldier['dead']:
+            soldier_legal_moves = get_soldier_legal_moves(index, soldier['poses'][-1]['position'], star_positions, army1_positions + army2_positions)
+            legal_moves += soldier_legal_moves
+
+    return legal_moves
+
+def get_army1_legal_moves(game_state):
+    return get_army_legal_moves(game_state, 1)
+
+def get_army2_legal_moves(game_state):
+    return get_army_legal_moves(game_state, 2)
